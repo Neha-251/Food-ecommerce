@@ -25,13 +25,16 @@ const SearchResult = ({ searchText }) => {
       {searchResults?.length > 0
         ? searchResults.map((result) => {
             return (
-              <Link className="no-underline " to={`/product/${result.idMeal}`}>
+              <Link
+                className="no-underline text-grey-500"
+                to={`/product/${result.idMeal}`}
+              >
                 {" "}
                 <div
                   className="flex justify-between w-full h-12 px-2  items-center text-grey-800"
                   key={result.idMeal}
                 >
-                  <p className="text-grey-800">{result.strMeal}</p>
+                  <p className="text-grey-500">{result.strMeal}</p>
                   <img className="h-10" src={result.strMealThumb} alt="img" />
                 </div>{" "}
               </Link>

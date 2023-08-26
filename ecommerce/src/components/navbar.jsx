@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setShouldShowCart } from "../redux/actions";
+import {
+  setShouldShowCart,
+  setShouldShowLocationModal,
+} from "../redux/actions";
 import SearchResult from "./searchResult";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [searchText, set_searchText] = useState("");
@@ -18,8 +22,15 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 z-40 h-20 w-full bg-zinc-200/[.5] flex gap-3 justify-between items-center">
+      {/* Home Icon */}
+      <Link to="/">
+        <button className="px-2 ml-4 py-2 text-rose-500 text-2xl text-bold italic tracking-wide drop-shadow-lg">
+          @Taste
+        </button>
+      </Link>
+
       {/* search bar */}
-      <div className="w-3/6 relative mx-2">
+      <div className="md:w-[450px]  relative mx-2">
         <input
           className="relative w-full h-12 rounded-xl pl-8 pr-2"
           value={searchText}
@@ -61,19 +72,12 @@ const Navbar = () => {
         {searchText ? <SearchResult searchText={searchText} /> : null}
       </div>
 
+      {/* Location button */}
       <div className="flex gap-4 mx-2">
-        <button className="p-2 cursor-pointer">
-          <svg
-            class="w-6 h-6 text-teal-600 "
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 14 18"
-          >
-            <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-          </svg>
-        </button>
-        <button className="p-2 cursor-pointer">
+        <button
+          className="p-2 cursor-pointer"
+          onClick={() => dispatch(setShouldShowLocationModal(true))}
+        >
           <svg
             class="w-6 h-6 text-teal-600 "
             aria-hidden="true"
@@ -87,7 +91,7 @@ const Navbar = () => {
 
         {/* cart button */}
         <button
-          className="p-2 cursor-pointer"
+          className="p-2 cursor-pointer mr-4"
           onClick={(e) => handleCartHover(e)}
         >
           <svg

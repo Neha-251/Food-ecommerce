@@ -2,9 +2,11 @@ import axios from "axios";
 import {
   CART_ITEMS,
   IS_LOADING,
+  LOCATION,
   SEARCH_RESULTS,
   SELECTED_PRODUCT_DETAILS,
   SHOULD_SHOW_CART,
+  SHOULD_SHOW_LOCATION_MODAL,
 } from "./constants";
 
 export const setIsLoading = (payload) => {
@@ -40,6 +42,34 @@ export const setSelectedProductDetails = (payload) => {
     type: SELECTED_PRODUCT_DETAILS,
     payload: payload,
   };
+};
+
+export const setShouldShowLocationModal = (payload) => {
+  return {
+    type: SHOULD_SHOW_LOCATION_MODAL,
+    payload: payload,
+  };
+};
+
+export const setLocation = (payload) => {
+  return {
+    type: LOCATION,
+    payload: payload,
+  };
+};
+
+export const getLocation = () => (dispatch) => {
+  dispatch(setLocation(true));
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      // api-key: 73d90525410bff39172868a88f2eeff9
+
+      axios("https://geocode.maps.co/reverse?lat=22.5705984&lon=22.5705984")
+        .then((res) => dispatch(setLocation(res)))
+        .catch((err) => console.log(err));
+    },
+    (error) => console.log(error)
+  );
 };
 
 export const getSearchResults = (searchStr) => (dispatch) => {
