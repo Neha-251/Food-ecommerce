@@ -34,6 +34,7 @@ const Navbar = () => {
         <input
           className="relative w-full h-12 rounded-xl pl-8 pr-2"
           value={searchText}
+          placeholder="Pancake"
           onChange={(e) => set_searchText(e.target.value)}
         ></input>
         <button className="absolute left-0 top-4 px-2">
